@@ -22,7 +22,7 @@ def open_file(filename):
         lap_data_file = open(filename, "a")
     except ValueError:
         print("Error opening file. Exiting.")
-        sys.exit(1);
+        sys.exit(1)
     return lap_data_file
 
 def close_file(file_obj):
@@ -31,9 +31,9 @@ def close_file(file_obj):
 
 def write_lap_data_to_file(lap_data_list, line):
     # Write a line of recorded lap data to a file
-
-    # Open the file for writing
     lap_data_file = open_file(lap_data_list)
 
     # Write the line of data to the file
     lap_data_file.write(line)
+
+    close_file(lap_data_file)

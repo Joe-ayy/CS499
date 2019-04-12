@@ -27,10 +27,10 @@ def run_model_YOLO(modelname, filename):
                 process.kill()
 
 def run_model_cam(filename, camera):
-    file = f_ops.open_file(filename)
     while(True):
         ret, frame = camera.read()
         if ret:
+            '''
             frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             frame = np.expand_dims(frame_gray, axis=1)
             frame_data = cv2.resize(frame, (32, 32))
@@ -41,14 +41,15 @@ def run_model_cam(filename, camera):
                 for i in range(0,4):
                     if int(data[i]) != 10:
                         print(data[i], end='')
-
+            print
             # write prediction to file
             line = ""
             for i in range(0, 4):
                 if int(data[i]) != 10:
                     line += str(data[i])
-
-            f_ops.write_lap_data_to_file(file, line)
+            line += "\n"
+            f_ops.write_lap_data_to_file(filename, line)
+            '''
             if cam_on:
                 cv2.imshow("Camera", frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):

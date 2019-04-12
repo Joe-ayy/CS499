@@ -9,7 +9,7 @@ import ml_model_ops as ml_ops
 def main():
     #model_name = "SVHN_model_multi.h5"
     filename = f_ops.generate_filename()
-    for i in range(1, len(sys.argv)):
+    for i in range(0, len(sys.argv)):
         # change file to output data to
         if sys.argv[i] == "-f":
             if sys.argv[i+1] != "":
@@ -31,7 +31,7 @@ def main():
 
         # If the camera object isn't found, prompt the user to verify the camera is connected
         if c_ops.verify_cam(camera):
-            print("Camera found.")
+            print("Camera found. Press q while hovering over camera view to exit program.")
             break
         else:
             c_ops.destroy_cam(camera)
@@ -48,9 +48,9 @@ def main():
     # OR
 
     # Run the model on an image stream using OpenCV
-    # ml_ops.run_model_cam(filename, camera)
+    ml_ops.run_model_cam(filename, camera)
     # endregion
-
+    sys.exit(0)
 
 if __name__ == "__main__":
     main()
