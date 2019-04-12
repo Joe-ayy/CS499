@@ -1,6 +1,5 @@
 import sys
 import numpy as np
-import cv2
 import camera_ops as c_ops
 import data_ops as d_ops
 import file_ops as f_ops
@@ -8,6 +7,20 @@ import ml_model_ops as ml_ops
 
 
 def main():
+    model_name = "placeholder"
+    filename = f_ops.generate_filename()
+    for i in range(1, len(sys.argv)):
+        # change file to output data to
+        if sys.argv[i] == "-f":
+            if sys.argv[i+1] != "":
+                filename = sys.argv[i+1]
+        # option to hide the command line output
+        elif sys.argv[i] == "--hide-cl-output":
+            ml_ops.cl_on = False
+        # option to hide the display of the webcam
+        elif sys.argv[i] == "--hide-webcam":
+            ml_ops.cam_on = False
+
     # region ### Verify the existence and connection of web camera and the machine learning model ###
     # Remind the user to make sure the web camera is properly connected
     input("Make sure the web camera is connected. Press Enter to continue...")
@@ -28,6 +41,9 @@ def main():
                 sys.exit(1)
 
     # INSERT ML MODEL EXISTENCE AND CONNECTION IF APPLICABLE
+
+    # Run the YOLO software on the model
+    #ml_ops.run_model_YOLO(model_name, filename)
     # endregion
 
 

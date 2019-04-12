@@ -1,5 +1,5 @@
 import datetime
-
+import sys
 
 def generate_filename():
     # To make each generated file unique, use the date and time of writing the file
@@ -18,22 +18,22 @@ def generate_filename():
 
 def open_file(filename):
     # Open the file for writing and return the object to write to the file
-    lap_data_file = open(filename, "w")
+    try:
+        lap_data_file = open(filename, "a")
+    except ValueError:
+        print("Error opening file. Exiting.")
+        sys.exit(1);
     return lap_data_file
-
 
 def close_file(file_obj):
     # Close the file after the writing is completed
     file_obj.close()
 
-
-def write_lap_data_to_file(lap_data_list):
-    # Write the recorded lap data to a file
+def write_lap_data_to_file(lap_data_list, line):
+    # Write a line of recorded lap data to a file
 
     # Open the file for writing
-    lap_data_file = open_file(generate_filename())
+    lap_data_file = open_file(lap_data_list)
 
-    # INSERT CODE TO WRITE TO FILE
-
-    # Close the file after writing
-    close_file(lap_data_file)
+    # Write the line of data to the file
+    lap_data_file.write(line)
