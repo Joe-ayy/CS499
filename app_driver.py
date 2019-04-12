@@ -48,7 +48,7 @@ def main():
     # OR
 
     # Run the model on an image stream using OpenCV
-    #ml_ops.run_model_cam(filename, camera)
+    ml_ops.run_model_cam(filename, camera)
     # endregion
 
 
