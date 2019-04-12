@@ -11,7 +11,7 @@ def generate_filename():
     minute = timestamp.minute
     second = timestamp.second
 
-    filename = "lap times " + month + '-' + day + '-' + year + ' ' + hour + ':' + minute + ':' + second + ".txt"
+    filename = "lap times " + str(month) + '-' + str(day) + '-' + str(year) + ' ' + str(hour) + ':' + str(minute) + ':' + str(second) + ".txt"
 
     return filename
 

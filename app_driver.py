@@ -7,7 +7,7 @@ import ml_model_ops as ml_ops
 
 
 def main():
-    model_name = "placeholder"
+    #model_name = "SVHN_model_multi.h5"
     filename = f_ops.generate_filename()
     for i in range(1, len(sys.argv)):
         # change file to output data to
@@ -44,6 +44,11 @@ def main():
 
     # Run the YOLO software on the model
     #ml_ops.run_model_YOLO(model_name, filename)
+
+    # OR
+
+    # Run the model on an image stream using OpenCV
+    #ml_ops.run_model_cam(filename, camera)
     # endregion
 
 
