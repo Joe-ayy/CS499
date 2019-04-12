@@ -43,12 +43,12 @@ def main():
     # INSERT ML MODEL EXISTENCE AND CONNECTION IF APPLICABLE
 
     # Run the YOLO software on the model
-    #ml_ops.run_model_YOLO(model_name, filename)
+    # ml_ops.run_model_YOLO(model_name, filename)
 
     # OR
 
     # Run the model on an image stream using OpenCV
-    ml_ops.run_model_cam(filename, camera)
+    # ml_ops.run_model_cam(filename, camera)
     # endregion
 
 

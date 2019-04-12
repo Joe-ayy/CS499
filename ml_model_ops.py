@@ -1,5 +1,6 @@
 from subprocess import Popen, PIPE
 from keras.models import load_model
+import numpy as np
 import cv2
 import file_ops as f_ops
 
@@ -30,21 +31,24 @@ def run_model_cam(filename, camera):
     while(True):
         ret, frame = camera.read()
         if ret:
+            frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            frame = np.expand_dims(frame_gray, axis=1)
+            frame_data = cv2.resize(frame, (32, 32))
             # run model on frame
-            '''data = model.predict_classes(frame)
+            data = model.predict(frame_data, batch_size=1)
             if cl_on:
                 # print prediction to the file
-                for i in range(0,5):
+                for i in range(0,4):
                     if int(data[i]) != 10:
                         print(data[i], end='')
 
             # write prediction to file
             line = ""
-            for i in range(0, 5):
+            for i in range(0, 4):
                 if int(data[i]) != 10:
                     line += str(data[i])
-            '''
-           # f_ops.write_lap_data_to_file(file, line)
+
+            f_ops.write_lap_data_to_file(file, line)
             if cam_on:
                 cv2.imshow("Camera", frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
