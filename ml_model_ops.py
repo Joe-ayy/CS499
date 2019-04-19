@@ -2,13 +2,13 @@ from subprocess import Popen, PIPE
 from keras.models import load_model
 from keras.preprocessing import image
 import numpy as np
-from time import sleep
 import cv2
 import file_ops as f_ops
 
 cl_on = True
 cam_on = True
 model = load_model("SVHN_model_multi.h5")
+
 
 def run_model_YOLO(modelname, filename):
     #open the file that will be written to
@@ -27,6 +27,7 @@ def run_model_YOLO(modelname, filename):
                 print("Signal caught. Ending the process and cleaning up.\n")
                 f_ops.close_file(file)
                 process.kill()
+
 
 def run_model_cam(filename, camera):
     minus = -1;
@@ -58,6 +59,7 @@ def run_model_cam(filename, camera):
 
     camera.release()
     cv2.destroyAllWindows()
+
 
 def gray_conv(img):
     r = 0.299
