@@ -7,15 +7,20 @@ import file_ops as f_ops
 
 cl_on = True
 cam_on = True
-model = load_model("SVHN_model_multi.h5")
 
 
 def run_model_YOLO(modelname, filename):
-    #open the file that will be written to
+    # open the file that will be written to
     file = f_ops.open_file(filename)
-    # placeholder: add args needed to run YOLO using modelname
+
+    # edit as needed
+    data = "cfg/svhn.data"
+    cfg = "cfg/yolov3-svhn.cfg"
+    weights = "yolov3-svhn.weights"
+    # cmd needed to run YOLO
+    cmd = ["darknet.exe", "detector", "demo", data, cfg, weights]
     # run the darknet software using the model
-    with Popen([modelname], stdout=PIPE) as process:
+    with Popen(cmd, stdout=PIPE) as process:
         for line in process.stdout:
             try:
                 if cl_on:
@@ -30,30 +35,38 @@ def run_model_YOLO(modelname, filename):
 
 
 def run_model_cam(filename, camera):
+    model = load_model("SVHN_model_multi.h5")
     minus = -1;
+
     while(True):
+
         minus *= -1
         ret, frame = camera.read()
+
         if cam_on:
             cv2.imshow("Camera", frame)
+
         cv2.imwrite("frame.jpg", frame)
+        # predict on every other frame
         if minus == 1:
-            if ret:
-                data = predict_on_img(model, "frame.jpg")
+            if ret: # read() was successful
+                result = predict_on_img(model, "frame.jpg")
                 if cl_on:
-                    # print prediction to the file
-                    for i in range(0,4):
-                        if int(data[i]) != 10:
-                            print(data[i], end='')
+                    # print prediction to the commandline
+                    for i in range(0, len(result)):
+                        if int(result[i]) != 10:
+                            print(result[i], end='')
                 print("\n")
+
                 # write prediction to file
                 line = ""
-                for i in range(0, len(data)):
-                    if int(data[i]) != 10:
-                        line += str(data[i])
+                for i in range(0, len(result)):
+                    if int(result[i]) != 10:
+                        line += str(result[i])
                 line += "\n"
                 f_ops.write_lap_data_to_file(filename, line)
 
+                # stop capture when user presses q
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
 

@@ -1,7 +1,5 @@
 import sys
-import numpy as np
 import camera_ops as c_ops
-import data_ops as d_ops
 import file_ops as f_ops
 import ml_model_ops as ml_ops
 
@@ -42,13 +40,13 @@ def main():
 
     # INSERT ML MODEL EXISTENCE AND CONNECTION IF APPLICABLE
 
-    # Run the YOLO software on the model
+    # Run the YOLO/Darknet software on the model
     # ml_ops.run_model_YOLO(model_name, filename)
 
     # OR
 
     # Run the model on an image stream using OpenCV
-    ml_ops.run_model_cam(filename, camera)
+    # ml_ops.run_model_cam(filename, camera)
     # endregion
     sys.exit(0)
 
