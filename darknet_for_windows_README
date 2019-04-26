@@ -1,0 +1,19 @@
+The following is the instructions I followed to successfully compile and run Yolov3/darknet on Windows.
+These instructions can be found here: https://github.com/AlexeyAB/darknet
+however, I tried to make this as painless as possible for installation and compiling.
+
+Steps:
+1. Download, install, and update Microsoft Visual Studio 2015/2017 to the latest update. https://visualstudio.microsoft.com/vs/older-downloads/
+2. Download and install OPENCV 3.4.0 for Windows. https://opencv.org/releases/
+  a. Make sure the top 2 directories for the path for OPENCV is: C:\opencv_3.0\opencv\
+3. If you are using an NVIDIA GPU:
+  a. Update the drivers for the GPU
+  b. Download and install CUDA 10.0 https://developer.nvidia.com/cuda-10.0-download-archive
+  c. Download the files from this zip folder: https://drive.google.com/open?id=1A5EJHbpXS4FCsXh_qnSyXYASF2fsumFx
+  d. Follow the instructions provided at this site for the files in the zip: https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#installwindows
+4. Open the .sln in Visual Studio 2015/2017 and set the build to x64 and Release
+5. Run Build -> Build darknet
+6. Copy opencv_ffmeg340.dll and opencvff_mpeg340_64.dll from bin where you installed opencv and paste it in the same directory as darknet.exe
+7. If you are using an NVIDIA GPU:
+  a. Copy cudnn64_7.dll from the zip to the directory where darknet.exe is located
+8. Darknet should be executable now, simply run from the command line and it should work!
